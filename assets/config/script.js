@@ -245,6 +245,108 @@ function optimizePerformance() {
   window.addEventListener("scroll", requestTick);
 }
 
+// Certificate PDF Modal Handler
+function initCertificateModal() {
+  const pdfLinks = document.querySelectorAll('.pdf-certificate');
+  const modal = document.getElementById('certificateModal');
+  const pdfViewer = document.getElementById('pdfViewer');
+  const modalTitle = document.getElementById('certificateModalLabel');
+  const downloadLink = document.getElementById('downloadPdf');
+  
+  if (!modal || !pdfViewer) {
+    console.log('Modal elements not found');
+    return;
+  }
+
+  console.log('Found PDF links:', pdfLinks.length);
+
+  pdfLinks.forEach((link, index) => {
+    console.log(`Setting up link ${index + 1}:`, link.href);
+    
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const pdfUrl = this.getAttribute('href');
+      const certificateTitle = this.getAttribute('data-certificate-title') || 'Certificate';
+      
+      // Add ripple effect
+      const ripple = document.createElement('span');
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+
+      Object.assign(ripple.style, {
+        width: `${size}px`,
+        height: `${size}px`,
+        left: `${x}px`,
+        top: `${y}px`,
+        position: 'absolute',
+        borderRadius: '50%',
+        background: 'rgba(255, 255, 255, 0.3)',
+        pointerEvents: 'none',
+        animation: 'ripple 0.6s ease-out',
+        zIndex: '1000'
+      });
+
+      this.style.position = 'relative';
+      this.style.overflow = 'hidden';
+      this.appendChild(ripple);
+
+      setTimeout(() => ripple.remove(), 600);
+      
+      // Show loading state
+      pdfViewer.innerHTML = `
+        <div class="pdf-loading">
+          <i class="fas fa-spinner"></i>
+          Loading PDF...
+        </div>
+      `;
+      
+      // Update modal title
+      modalTitle.textContent = certificateTitle;
+      
+      // Update download link
+      downloadLink.href = pdfUrl;
+      
+      // Show modal
+      const bootstrapModal = new bootstrap.Modal(modal);
+      bootstrapModal.show();
+      
+      // Set PDF source with timeout for better error handling
+      setTimeout(() => {
+        pdfViewer.src = pdfUrl;
+      }, 100);
+      
+      // Handle PDF load events
+      pdfViewer.onload = function() {
+        console.log('PDF loaded successfully');
+      };
+      
+      pdfViewer.onerror = function() {
+        console.log('PDF load error');
+        pdfViewer.innerHTML = `
+          <div class="pdf-loading">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>
+              <p>Unable to load PDF preview.</p>
+              <p>Please use the download button below to view the certificate.</p>
+            </div>
+          </div>
+        `;
+      };
+    });
+  });
+  
+  // Handle modal close
+  modal.addEventListener('hidden.bs.modal', function() {
+    // Clear PDF viewer when modal is closed
+    pdfViewer.src = '';
+    pdfViewer.innerHTML = '';
+  });
+}
+
 // Initialize everything
 document.addEventListener("DOMContentLoaded", function() {
   // Set initial styles to prevent FOUC (Flash of Unstyled Content)
@@ -260,6 +362,7 @@ document.addEventListener("DOMContentLoaded", function() {
   initFormHandling();
   initClickEffects();
   optimizePerformance();
+  initCertificateModal(); // Add certificate modal handler
 
   // Start animations with proper sequencing
   setTimeout(() => {
