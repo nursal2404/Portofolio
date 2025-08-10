@@ -289,7 +289,7 @@
                             <span>NLTK</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link">
+                            <a href="#" class="project-link view-project">
                                 <i class="fas fa-eye"></i> View
                             </a>
                             <a href="#" class="project-link">
@@ -351,11 +351,9 @@
                         <p class="project-desc">Data visualization dashboard with Power BI integration</p>
                         <div class="project-tech">
                             <span>Power BI</span>
-                            <span>.NET</span>
-                            <span>SQL</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link">
+                            <a href="#" class="project-link view-project">
                                 <i class="fas fa-eye"></i> View
                             </a>
                             <a href="#" class="project-link">
@@ -504,8 +502,37 @@
         </div>
     </section>
 
+    <!-- Modal Project -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalProjectTitle">Project Title</h2>
+            </div>
+            <div class="modal-body">
+                <div class="project-images">
+                    <!-- JavaScript will be used to display the images -->
+                </div>
+                <div class="project-description">
+                    <p id="modalProjectDesc">Project description will appear here.</p>
+                    <div class="project-tech-used" id="modalProjectTech"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn-custom btn-primary-custom" id="modalProjectDemo">
+                    <i class="fas fa-eye"></i> Live Demo
+                </a>
+                <a href="javascript:void(0)" class="btn-custom btn-secondary-custom" id="modalProjectCode" target="_blank">
+                    <i class="fab fa-github"></i> View Code
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="assets/config/script.js"></script>
+
+
 </body>
 </html>

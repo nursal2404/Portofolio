@@ -227,6 +227,118 @@ function initClickEffects() {
   }
 }
 
+// Data project dengan gambar
+const projectsData = {
+    "Medical Diagnosis Chatbot": {
+        images: [
+            "assets/projects/chatbot-1.jpg",
+            "assets/projects/chatbot-2.jpg"
+        ],
+        description: "NLP-powered chatbot using LSTM with 90% diagnostic accuracy. This project involved training a model on medical datasets to provide preliminary diagnoses based on patient symptoms.",
+        tech: ["Python", "TensorFlow", "NLTK", "Keras", "Pandas"],
+        demoLink: "#",
+        codeLink: "#"
+    },
+    "Transaction System": {
+        images: [
+            "assets/projects/transaction-1.jpg",
+            "assets/projects/transaction-2.jpg",
+            "assets/projects/transaction-3.jpg"
+        ],
+        description: "Laravel-based inventory and payment tracking system with role-based access control, real-time reporting, and integration with payment gateways.",
+        tech: ["Laravel", "MySQL", "Bootstrap", "jQuery", "REST API"],
+        demoLink: "#",
+        codeLink: "#"
+    },
+    "Analytics Dashboard": {
+        images: [
+            "assets/projects/power-bi-1.png",
+        ],
+        description: "Data visualization dashboard with Power BI integration",
+        tech: ["Power BI"],
+        demoLink: null,
+        codeLink: "https://github.com/nursal2404/Learning/tree/main/PowerBI"
+    },
+    // Tambahkan data untuk project lainnya
+};
+
+// Inisialisasi modal
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('projectModal');
+    const closeBtn = document.querySelector('.close-modal');
+    const viewButtons = document.querySelectorAll('.project-links a[href="#"]:first-child');
+    
+    // Setup event listeners untuk tombol view
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const projectItem = this.closest('.project-item');
+            const projectTitle = projectItem.querySelector('h3').textContent;
+            
+            openModal(projectTitle);
+        });
+    });
+    
+    // Close modal
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto"; // Enable scrolling
+    });
+    
+    // Close modal ketika klik di luar konten
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    });
+    
+    // Fungsi untuk membuka modal
+    function openModal(projectTitle) {
+        const projectData = projectsData[projectTitle];
+        
+        if (projectData) {
+            // Set judul
+            document.getElementById('modalProjectTitle').textContent = projectTitle;
+            
+            // Set deskripsi
+            document.getElementById('modalProjectDesc').textContent = projectData.description;
+            
+            // Set teknologi
+            const techContainer = document.getElementById('modalProjectTech');
+            techContainer.innerHTML = '';
+            projectData.tech.forEach(tech => {
+                const techSpan = document.createElement('span');
+                techSpan.textContent = tech;
+                techContainer.appendChild(techSpan);
+            });
+            
+            // Set gambar
+            const imagesContainer = document.querySelector('.project-images');
+            imagesContainer.innerHTML = '';
+            projectData.images.forEach(imgSrc => {
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.alt = projectTitle;
+                imagesContainer.appendChild(img);
+            });
+            
+            // Set link
+            document.getElementById('modalProjectDemo').href = projectData.demoLink || 'javascript:void(0)';
+            document.getElementById('modalProjectDemo').style.opacity = projectData.demoLink ? '1' : '0.5';
+            document.getElementById('modalProjectDemo').style.cursor = projectData.demoLink ? 'pointer' : 'not-allowed';
+            document.getElementById('modalProjectDemo').onclick = projectData.demoLink ? null : function(e) { e.preventDefault(); };
+
+            document.getElementById('modalProjectCode').href = projectData.codeLink;
+            
+            // Tampilkan modal
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden"; // Disable scrolling
+        }
+    }
+});
+
+
 // Performance Optimization
 function optimizePerformance() {
   let ticking = false;
