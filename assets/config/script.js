@@ -257,7 +257,15 @@ const projectsData = {
         demoLink: null,
         codeLink: "https://github.com/nursal2404/Learning/tree/main/PowerBI"
     },
-    // Tambahkan data untuk project lainnya
+    "Image-Convert-to-PDF": {
+        images: [
+            "assets/projects/Convert-image-1.png",
+        ],
+        description: "A web app (Go + Gin) that lets you upload multiple images (JPG/PNG), auto-sort them naturally (e.g. image2, image10), then convert into a single PDF via pdfcpu",
+        tech: ["Golang","Gin","pdfcpu","Javascript"],
+        demoLink: null,
+        codeLink: "https://github.com/nursal2404/Image-Convert-to-PDF"
+    },
 };
 
 // Inisialisasi modal
