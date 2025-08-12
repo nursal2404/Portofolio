@@ -239,16 +239,14 @@ const projectsData = {
         demoLink: "#",
         codeLink: "#"
     },
-    "Transaction System": {
+    "Agent AI - Flowise": {
         images: [
-            "assets/projects/transaction-1.jpg",
-            "assets/projects/transaction-2.jpg",
-            "assets/projects/transaction-3.jpg"
+            "assets/projects/agent-ai-1.png",
         ],
-        description: "Laravel-based inventory and payment tracking system with role-based access control, real-time reporting, and integration with payment gateways.",
-        tech: ["Laravel", "MySQL", "Bootstrap", "jQuery", "REST API"],
-        demoLink: "#",
-        codeLink: "#"
+        description: "Custom AI agent built using Flowise, integrating LLM, vector database, and API connectors for automated tasks",
+        tech: ["Flowise", "LLM", "Vector DB", "API Connector"],
+        demoLink: null,
+        codeLink: "https://github.com/nursal2404/Agent_AI_Flowise"
     },
     "Analytics Dashboard": {
         images: [
